@@ -1,0 +1,10 @@
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/css/style.css')
+  body
+    h1= message
+    div(class='container')
+        a(href="/scan")
+            img(src="img/scanner.svg" class="svg-icon")
+        div(class=`${statuscls}`)=epsonstatus

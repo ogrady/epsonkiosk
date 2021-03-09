@@ -1,0 +1,35 @@
+body {
+    background-color: #1a1a1a;
+    font-family: monospace;
+    color: white;
+}
+
+.good {
+    text-align: center;
+    color: green;
+}
+
+.bad {
+    text-align: center;
+    color: red;
+}
+
+.container {
+    text-align: center;
+}
+
+/* check for colours https://codepen.io/sosuke/pen/Pjoqqp */
+.svg-icon {
+    width: 200px;
+    margin:0 auto;
+    filter: invert(99%) sepia(1%) saturate(5%) hue-rotate(340deg) brightness(101%) contrast(105%);
+}
+
+.svg-icon:hover {
+    filter: invert(94%) sepia(65%) saturate(6201%) hue-rotate(323deg) brightness(91%) contrast(87%);
+}
+
+.svg-icon:active {
+    filter: invert(95%) sepia(22%) saturate(1175%) hue-rotate(332deg) brightness(84%) contrast(99%);
+}
+
