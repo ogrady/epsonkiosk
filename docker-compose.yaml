@@ -7,5 +7,5 @@ services:
             - '/dev/bus/usb:/dev/bus/usb'
             - '/tmp/:/app/node/scans/'
         ports:
-            - '3003:3003'
+            - '3005:3003'
         image: 'epsonkiosk:latest'

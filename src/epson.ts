@@ -1,12 +1,5 @@
 import { exec } from "child_process";
 
-exec(`whoami`, {}, (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => {
-    console.log("WHOAMI OR ARE WE DANCER???");
-    console.log("err", error);
-    console.log("stderr", stderr);
-    console.log("stdout", stdout);
-});
-
 /**
 * Errors codes natice to epsonscan2
 */

@@ -2,12 +2,17 @@ import { config } from "./config";
 import * as ep from "./epson";
 const express = require("express");
 const app = express();
-const port = 3003; // default port to listen
+
+const port: number = process.env.PORT !== undefined && parseInt(process.env.PORT) !== NaN 
+                        ? parseInt(process.env.PORT as string) 
+                        : 8080;
 
 const epson = new ep.Epson();
 
 app.set("view engine", "pug");
 app.use(express.static("rsc"));
+
+console.log(process.env);
 
 async function renderIndex(res: any) {
     const available = await epson.isInstalled();

@@ -12,17 +12,8 @@ COPY package*.json ./
 RUN npm install # --only=prod
 COPY . .
 
-# ENV HTTP_PORT=3003
-
-#VOLUME /app/config
-#VOLUME /app/scans
 VOLUME scans
 
 RUN mkdir -p /app/scans
-
-# USER node
-EXPOSE 3003
-
-
 
 CMD ["npm","run", "start"]
