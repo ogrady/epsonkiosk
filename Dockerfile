@@ -12,7 +12,7 @@ COPY package*.json ./
 RUN npm install # --only=prod
 COPY . .
 
-VOLUME scans
+#VOLUME scans
 
 RUN mkdir -p /app/scans
 
