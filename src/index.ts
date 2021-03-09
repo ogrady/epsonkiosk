@@ -12,8 +12,6 @@ const epson = new ep.Epson();
 app.set("view engine", "pug");
 app.use(express.static("rsc"));
 
-console.log(process.env);
-
 async function renderIndex(res: any) {
     const available = await epson.isInstalled();
     res.render("index", { 

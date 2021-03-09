@@ -1,11 +1,15 @@
 # yes, I am putting my compose file in my source repository. Fight me!
-version: '3.3'
+version: "3.8"
 services:
-    epsonkiosk:
-        privileged: true
-        volumes:
-            - '/dev/bus/usb:/dev/bus/usb'
-            - '/tmp/:/app/node/scans/'
-        ports:
-            - '3005:3003'
-        image: 'epsonkiosk:latest'
+  epsonkiosk: 
+    privileged: true
+    build: https://github.com/ogrady/epsonkiosk.git
+    volumes:
+    - type: bind
+      source: .scans/
+      target: /app/node/scans/
+    restart: always
+    ports:
+      - 3003:8080
+    environment:
+        PORT: 8080
