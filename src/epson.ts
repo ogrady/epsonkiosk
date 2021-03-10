@@ -93,10 +93,6 @@ export class Epson {
         return (await this.isInstalled())
                 ? new Promise<number>((resolve, reject) => 
                     exec(`epsonscan2 -s ${scanner.id} ${settingsFile.path}`, {}, (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => {
-                        console.log("err", error);
-                        console.log("stderr", stderr);
-                        console.log("stdout", stdout);
-
                         if(stdout) {
                             this.logger.log(u.Severity.INFO, stdout);
                         }
