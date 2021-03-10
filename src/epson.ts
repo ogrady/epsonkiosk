@@ -63,8 +63,8 @@ export class Epson {
     private installed: boolean | undefined;
     readonly logger: u.Logger;
 
-    public constructor() {
-        this.logger = new u.Logger();
+    public constructor(logger: u.Logger | undefined = undefined) {
+        this.logger = logger || new u.Logger();
     }
 
     /**
@@ -76,9 +76,9 @@ export class Epson {
         if(this.installed === undefined) {
             this.installed = await new Promise<boolean>((resolve, reject) => 
                                         exec("epsonscan2")
-                                        .on("error", error => { this.logger.log(u.Severity.ERROR, `An error occurred while trying to execute epsonscan2: ${error}`); resolve(false); })
+                                        .on("error", error => { this.logger.error(`An error occurred while trying to execute epsonscan2: ${error}`); resolve(false); })
                                         .on("close", code => resolve(code !== null && INSTALLED_WHITELIST.includes(code)) ));
-            this.logger.log(u.Severity.DEBUG, `Epson installation detected: ${this.installed}`);
+            this.logger.debug(`Epson installation detected: ${this.installed}`);
         }
         return this.installed;
     }
@@ -90,21 +90,22 @@ export class Epson {
     * @returns a status code
     */
     public async scan(scanner: Scanner, settingsFile: SettingsFile): Promise<number> {
+        this.logger.info("scan request received");
         return (await this.isInstalled())
                 ? new Promise<number>((resolve, reject) => 
                     exec(`epsonscan2 -s ${scanner.id} ${settingsFile.path}`, {}, (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => {
                         if(stdout) {
-                            this.logger.log(u.Severity.INFO, stdout);
+                            this.logger.info(stdout);
                         }
 
                         if (error || stderr || !stdout) {
-                            this.logger.log(u.Severity.ERROR, error || stderr || "no output received");
+                            this.logger.error(error || stderr || "no output received");
                             reject(ECodes.GENERIC_ERROR);
                         } else {
                             resolve(ECodes.NO_ERROR);                           
                         }
                     })
-                    .on("message", (message, handle) => this.logger.log(u.Severity.INFO, message))
+                    .on("message", (message, handle) => this.logger.error(message))
                 )
                 : Promise.resolve(ECodes.NOT_INSTALLED);
     }
@@ -159,7 +160,7 @@ export class Epson {
             }
 
             const scanner = new Scanner(id[1], model[1])
-            this.logger.log(u.Severity.DEBUG, `parsed scanner ${scanner}`)
+            this.logger.debug(`parsed scanner ${scanner}`)
             scanners.push(scanner);
         }       
         return scanners;

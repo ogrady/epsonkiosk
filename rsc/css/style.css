@@ -15,6 +15,10 @@ footer {
     overflow-y: auto;
 }
 
+a {
+    overflow: overlay;
+}
+
 .good {
     text-align: center;
     color: green;
@@ -44,3 +48,6 @@ footer {
     filter: invert(95%) sepia(22%) saturate(1175%) hue-rotate(332deg) brightness(84%) contrast(99%);
 }
 
+.disabled img {
+    filter: invert(15%) sepia(57%) saturate(2881%) hue-rotate(316deg) brightness(90%) contrast(91%);
+}

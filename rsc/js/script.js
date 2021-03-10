@@ -1,7 +1,21 @@
-let socket = new WebSocket("ws://localhost:14444");
+function disableButton(button) {
+    button.classList.add("disabled");
+    button.onclick = e => e.preventDefault();
+} 
+
+function enableButton(button) {
+    button.classList.remove("disabled");
+    button.onclick = e => {
+        e.preventDefault();
+        disableButton(button);
+        fetch("/scan").then(res => enableButton(button));
+    };
+}
+
+const socket = new WebSocket("ws://localhost:14444");
 
 socket.onopen = function(e) {
-  console.log("[open] Connection established");
+  console.log("[open] Connection established", e);
 };
 
 socket.onmessage = function(event) {
@@ -24,11 +38,5 @@ socket.onerror = function(error) {
   console.log(`[error] ${error.message}`);
 };
 
-window.onload = () => {
-    Array.from(document.getElementsByClassName("scanner"))
-         .map(scanner => scanner.onclick = e => {
-                                                   e.preventDefault();
-                                                   fetch("/scan")
-                                                });
-};
+window.onload = () => Array.from(document.getElementsByClassName("scanner")).map(enableButton)
 
