@@ -4,6 +4,17 @@ body {
     color: white;
 }
 
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 90%;
+    height: 20rem;
+    background-color: black;
+    border: solid 1px gray;
+    overflow-y: auto;
+}
+
 .good {
     text-align: center;
     color: green;
