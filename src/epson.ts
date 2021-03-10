@@ -97,6 +97,10 @@ export class Epson {
                         console.log("stderr", stderr);
                         console.log("stdout", stdout);
 
+                        if(stdout) {
+                            this.logger.log(u.Severity.INFO, stdout);
+                        }
+
                         if (error || stderr || !stdout) {
                             this.logger.log(u.Severity.ERROR, error || stderr || "no output received");
                             reject(ECodes.GENERIC_ERROR);
