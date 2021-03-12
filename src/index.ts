@@ -11,10 +11,13 @@ async function renderIndex(res: any) {
         message: "Tap to Scan",
         epsonstatus: available ? "Available" : "Unavailable",
         statuscls: available ? "good" : "bad",
-        scannerid: "DS-310"
+        scannerid: "DS-310",
+        configs: ep.findConfigFiles(configDirectory).map(config => config.name)
     });    
 }
 
+const configDirectory = ".";
+const defaultConfig = "Settings.SF2";
 const httpApp = express();
 const wsApp = express();
 const httpPort: number = u.parsePort(process.env.HTTP_PORT, 8080);
@@ -29,12 +32,15 @@ httpApp.set("view engine", "pug");
 
 httpApp.use(express.static("rsc"));
 
+httpApp.use(express.json()); 
+
 httpApp.get( "/", async ( req: any, res: any ) => renderIndex(res));
 
-httpApp.get("/scan", async ( req: any, res: any ) => {
+httpApp.post("/scan", async ( req: any, res: any ) => {
     try {
         // fixme: replace hardcoded scanner and settings file
-        const result = await epson.scan(new ep.Scanner("DS-310", "ES013E"), new ep.SettingsFile("./Settings.SF2")); // this will be a status code some day...
+        const settingsFile: string = u.path(configDirectory, ep.findConfigFiles(configDirectory).find(config => config.name === req.body.configuration)?.name || defaultConfig);
+        const result = await epson.scan(new ep.Scanner("DS-310", "ES013E"), new ep.SettingsFile(settingsFile)); // this will be a status code some day...
     } catch(err) {
         // nothing for now, will be printed at callee anyway
     }

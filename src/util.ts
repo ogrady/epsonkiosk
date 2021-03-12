@@ -4,6 +4,10 @@ export function parsePort(v: string | undefined, fallback: number) {
     return v !== undefined && parseInt(v) !== NaN ? parseInt(v as string) : fallback;  
 }
 
+export function path(directory: string, file: string): string {
+    return (directory.endsWith("/") ? directory : directory + "/") + file;  
+}
+
 export enum Severity {
     DEBUG = "DEBUG",
     INFO = "INFO",

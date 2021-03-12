@@ -1,4 +1,5 @@
 import { exec } from "child_process";
+import * as fs from "fs";
 import * as u from "./util";
 
 /**
@@ -56,6 +57,12 @@ const SCAN_WHITELIST = [
     EpsonECodes.UNABLE_TO_SAVE
 ];
 
+export const findConfigFiles = (directory: string) =>
+    fs.readdirSync(directory)
+      .filter(file => file.endsWith(".SF2"))
+      .map(file => { return { name: file, path: u.path(directory, file)}; } )
+;
+
 /**
 * Wrapper around epsonscan2
 */
@@ -90,7 +97,7 @@ export class Epson {
     * @returns a status code
     */
     public async scan(scanner: Scanner, settingsFile: SettingsFile): Promise<number> {
-        this.logger.info("scan request received");
+        this.logger.info(`scan request received, attempting to use settings file ${settingsFile.path}`);
         return (await this.isInstalled())
                 ? new Promise<number>((resolve, reject) => 
                     exec(`epsonscan2 -s ${scanner.id} ${settingsFile.path}`, {}, (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => {

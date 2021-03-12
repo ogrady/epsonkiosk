@@ -8,7 +8,14 @@ function enableButton(button) {
     button.onclick = e => {
         e.preventDefault();
         disableButton(button);
-        fetch("/scan").then(res => enableButton(button));
+        fetch("/scan", {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({configuration: document.getElementById("configuration").value})
+         }).then(res => enableButton(button));
     };
 }
 

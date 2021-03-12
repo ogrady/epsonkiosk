@@ -1,11 +1,14 @@
 html
   head
     title= title
-    link(rel='stylesheet', href='/css/style.css')
-    script(src='/js/script.js')
+    link(rel="stylesheet", href="/css/style.css")
+    script(src="/js/script.js")
   body
     h1= message
-    div(class='container')
+    select(name="", id="configuration")
+        each c in configs
+            option=c
+    div(class="container")
         a(href="/scan" class="scanner", id=scannerid)
             img(src="img/scanner.svg" class="svg-icon")
         div(class=`${statuscls}`)=epsonstatus
