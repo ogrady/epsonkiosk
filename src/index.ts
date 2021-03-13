@@ -34,7 +34,7 @@ async function renderIndex(res: any) {
         epsonstatus: available ? "Available" : "Unavailable",
         statuscls: available ? "good" : "bad",
         //scannerid: "DS-310",
-        scanners: (await epson.getScanners())?.map(scanner => scanner.id) || (debug ? [new ep.Scanner("DS-310", "ES013E")] : []),
+        scanners: (await epson.getScanners())?.map(scanner => scanner) || (debug ? [new ep.Scanner("DS-310", "ES013E")] : []),
         configs: ep.findConfigFiles(configDirectory).map(config => config.name)
     });    
 }
