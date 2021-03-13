@@ -16,4 +16,4 @@ services:
       - 3003:8080
     environment:
         HTTP_PORT: 8080
-        WS_PORT: 8080
+        WS_PORT: 8081

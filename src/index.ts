@@ -2,6 +2,7 @@ import { config } from "./config";
 import * as ep from "./epson";
 import * as ws from "ws";
 import * as u from "./util";
+import * as fs from "fs";
 const express = require("express");
 
 // configuration
@@ -18,6 +19,9 @@ const logger = new u.Logger();
 const epson = new ep.Epson(logger);
 const wss = new ws.Server({ noServer: true });
 
+// create default config, if it does not exist
+fs.copyFileSync(defaultConfig, u.path(configDirectory, defaultConfig), fs.constants.COPYFILE_EXCL);
+
 async function renderIndex(res: any) {
     const available = await epson.isInstalled();
     res.render("index", { 
@@ -31,13 +35,10 @@ async function renderIndex(res: any) {
     });    
 }
 
-
-
 logger.on("log", message => Array.from(wss.clients).map(client => client.send(JSON.stringify(message))));
 
 httpApp.set("view engine", "pug");
 httpApp.set("views", "rsc/views");
-
 
 httpApp.use(express.static("rsc"));
 
