@@ -60,7 +60,7 @@ const SCAN_WHITELIST = [
 /**
 * Finds all .SF2 files in a given directory (non-recursive)
 * @param directory absolute or relative path to where the configs are 
-* @returns list of objects, each holding the filename and the fully qualified path to the file
+* @returns list of objects, each holding the filename and the full path to the file
 */
 export const findConfigFiles = (directory: string): {name: string, path: string}[] =>
     fs.readdirSync(directory)
@@ -172,7 +172,7 @@ export class Epson {
             }
 
             const scanner = new Scanner(id[1], model[1])
-            this.logger.debug(`parsed scanner ${scanner}`)
+            this.logger.debug(`parsed scanner ${scanner.id}`)
             scanners.push(scanner);
         }       
         return scanners;
