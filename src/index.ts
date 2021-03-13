@@ -20,7 +20,11 @@ const epson = new ep.Epson(logger);
 const wss = new ws.Server({ noServer: true });
 
 // create default config, if it does not exist
-fs.copyFileSync(defaultConfig, u.path(configDirectory, defaultConfig), fs.constants.COPYFILE_EXCL);
+try {
+    fs.copyFileSync(defaultConfig, u.path(configDirectory, defaultConfig), fs.constants.COPYFILE_EXCL);
+} catch(err) {
+    logger.warn(`could not create default config. This is probably not an issue if the default fiel already existed. Caught error: ${err}`);
+}
 
 async function renderIndex(res: any) {
     const available = await epson.isInstalled();
