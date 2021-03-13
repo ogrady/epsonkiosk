@@ -14,7 +14,10 @@ function enableButton(button) {
               'Content-Type': 'application/json'
             },
             method: "POST",
-            body: JSON.stringify({configuration: document.getElementById("configuration").value})
+            body: JSON.stringify({
+              scanner: e.srcElement.parentNode.id, 
+              configuration: document.getElementById("configuration").value
+            })
          }).then(res => enableButton(button));
     };
 }
