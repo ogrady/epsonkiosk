@@ -6,10 +6,14 @@ services:
     build: https://github.com/ogrady/epsonkiosk.git
     volumes:
     - type: bind
-      source: .scans/
+      source: ./scans/
       target: /app/node/scans/
+    - type: bind
+      source: ./config/
+      target: /app/node/config/
     restart: always
     ports:
       - 3003:8080
     environment:
-        PORT: 8080
+        HTTP_PORT: 8080
+        WS_PORT: 8080

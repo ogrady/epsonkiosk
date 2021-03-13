@@ -15,5 +15,9 @@ COPY . .
 #VOLUME scans
 
 RUN mkdir -p /app/scans
+RUN mkdir -p /app/config
+
+COPY Default.SF2 /app/config/
+
 
 CMD ["npm","run", "start"]

@@ -14,7 +14,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx ts-node src/index.ts",
-    "watch": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'clear && npx ts-node' src/index.ts"
+    "watch": "nodemon --watch 'src/**/*.ts' --watch 'rsc/**/*.*' --ignore 'src/**/*.spec.ts' --exec 'clear && npx ts-node' src/index.ts"
   },
   "author": "Daniel O'Grady",
   "license": "ISC",

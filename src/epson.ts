@@ -57,7 +57,12 @@ const SCAN_WHITELIST = [
     EpsonECodes.UNABLE_TO_SAVE
 ];
 
-export const findConfigFiles = (directory: string) =>
+/**
+* Finds all .SF2 files in a given directory (non-recursive)
+* @param directory absolute or relative path to where the configs are 
+* @returns list of objects, each holding the filename and the fully qualified path to the file
+*/
+export const findConfigFiles = (directory: string): {name: string, path: string}[] =>
     fs.readdirSync(directory)
       .filter(file => file.endsWith(".SF2"))
       .map(file => { return { name: file, path: u.path(directory, file)}; } )

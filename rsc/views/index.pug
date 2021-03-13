@@ -1,0 +1,18 @@
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/css/style.css")
+    script(src="/js/script.js") 
+  body
+    div
+        span="Epson Status:"
+        span(class=`${statuscls}`)=epsonstatus
+    select(name="", id="configuration")
+        each config in configs
+            option=config
+    div(class="container")
+        each scanner in scanners
+            a(href="/scan" class="scanner", id=scanner.id)
+                img(src="img/scanner.svg" class="svg-icon")
+            div=scanner.id
+    footer(id="footer")
