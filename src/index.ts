@@ -23,7 +23,7 @@ const wss = new ws.Server({ noServer: true });
 try {
     fs.copyFileSync(defaultConfig, u.path(configDirectory, defaultConfig), fs.constants.COPYFILE_EXCL);
 } catch(err) {
-    logger.warn(`could not create default config. This is probably not an issue if the default fiel already existed. Caught error: ${err}`);
+    logger.warn(`could not create default config. This is probably not an issue if the default file already existed. Caught error: ${err}`);
 }
 
 async function renderIndex(res: any) {
